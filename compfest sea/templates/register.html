@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <script type="text/javascript" src="../static/js/script.js" defer></script>
+    <title>SEA Catering</title>
+</head>
+<body>
+    <div class="body">
+        <div class="welcome">
+            <!-- navigation bar -->
+            <nav class="navbar">
+                <div class="navlinks">
+                    {% if session.email %}
+                        <a href="{{ url_for('dashboard') }}" class="navlink">Account</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="navlink">Login</a>
+                    {% endif %}
+                    <a href="{{ url_for('home') }}" class="navlink">Home</a>
+                    <a href="{{ url_for('meal') }}" class="navlink">Meal Plans</a>
+                    <a href="{{ url_for('subscription') }}" class="navlink">Subscription</a>
+                    <a href="{{ url_for('contact') }}" class="navlink">Contact Us</a>
+                </div>
+                <div class="logo">
+                    <img src="../static/logo1.png" alt="Logo" class="navimage">
+                    <img src="../static/logo2.png" alt="Logo" class="navimage">
+                </div>
+            </nav>
+
+            <!-- flash message -->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div id="flash" class="flash">
+                    <div class="flash-container">
+                    {% for message in messages %}
+                        <div class="flash-message">
+                            <div class="flash-title">{{ message }}</div>
+                            <button id="close-btn" class="flash-btn">&times;</button>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            {% endwith %}
+
+            <!-- registration form -->
+            <div class="register-container">
+                <div class="title">Register</div>
+                <form class="login" action="{{ url_for('register') }}" method="POST">
+                    <input type="text" id="Name" name="Name" placeholder="Name" required>
+                    <input type="email" id="Email" name="Email" placeholder="email@gmail.com" required>
+                    <input type="password" id="Password" name="Password" placeholder="Password" required>
+                    <button type="submit">Register</button>
+                </form>
+                <div class="link">Already have an account? <a href="{{ url_for('login') }}"><b>Login</b></a></div>
+            </div>
+        </div>
+
+        <footer>
+            <!-- contact details -->
+            <span class="footer-item1">Contact Us</span>
+            <div class="footer-item2">Brian</div>
+            <div class="footer-item2">☏ 08123456789</div>
+        </footer>
+
+        <script>
+            // flash message
+            const flash = document.getElementById("flash");
+            const closebtn = document.getElementById("close-btn");
+            closebtn.addEventListener("click", () => {
+                flash.classList.add("slideout");
+                setTimeout(() => {
+                    flash.classList.remove("active", "slideout");
+                    flash.style.display = "none";
+                }, 200);
+            });
+        </script>
+    </div>
+</body>
+</html>

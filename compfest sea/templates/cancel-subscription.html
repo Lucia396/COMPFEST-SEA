@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <script type="text/javascript" src="../static/js/script.js" defer></script>
+    <title>SEA Catering</title>
+</head>
+<body>
+    <div class="body">
+        <div class="welcome">
+            <!-- navigation bar -->
+            <nav class="navbar">
+                <div class="navlinks">
+                    <a href="{{ url_for('dashboard') }}" class="navlink active">Account</a>
+                    <a href="{{ url_for('home') }}" class="navlink">Home</a>
+                    <a href="{{ url_for('meal') }}" class="navlink">Meal Plans</a>
+                    <a href="{{ url_for('subscription') }}" class="navlink">Subscription</a>
+                    <a href="{{ url_for('contact') }}" class="navlink">Contact Us</a>
+                </div>
+                <div class="logo">
+                    <img src="../static/logo1.png" alt="Logo" class="navimage">
+                    <img src="../static/logo2.png" alt="Logo" class="navimage">
+                </div>
+            </nav>
+
+            <!-- cancel subscription -->
+            <div class="pause-container">
+                <div class="title">🧾 Manage Subscription 🧾</div>
+                <ul class="pause">
+                    {% for subscription in subscriptions %}
+                        <li>
+                            <div class="pause-con-item">
+                                <div class="subs-container-top">Subscription #{{ subscription.SubscriptionID }}</div>
+                                <div class="subs-container-item-title">Plan Selection</div>
+                                <div class="subs-container-item">{{ subscription.PlanSelection }}</div>
+                                <div class="subs-container-item-title">Meal Type</div>
+                                <div class="subs-container-item">{{ subscription.MealType }}</div>
+                                <div class="subs-container-item-title">Delivery Days</div>
+                                <div class="subs-container-item">{{ subscription.DeliveryDays }}</div>
+                                <div class="subs-container-item-title">Status</div>
+                                <div class="subs-container-item">{{ subscription.Status }}</div>
+                                <form action="{{ url_for('cancelSubscription', SubscriptionID=subscription.SubscriptionID) }}" method="POST" class="pause-form" onsubmit="return confirmCancel();">
+                                    <button type="submit">Cancel Subscription</button>
+                                </form>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+        <footer>
+            <!-- contact details -->
+            <span class="footer-item1">Contact Us</span>
+            <div class="footer-item2">Brian</div>
+            <div class="footer-item2">☏ 08123456789</div>
+        </footer>
+
+        <script>
+            function confirmCancel() {
+                return confirm("Are you sure you want to delete this subscription?");
+            }
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <script type="text/javascript" src="../static/js/script.js" defer></script>
+    <title>SEA Catering</title>
+</head>
+<body>
+    <div class="body">
+        <main>
+            <!-- navigation bar -->
+            <nav class="navbar">
+                <div class="navlinks">
+                    {% if session.email %}
+                        <a href="{{ url_for('dashboard') }}" class="navlink">Account</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="navlink">Login</a>
+                    {% endif %}
+                    <a href="{{ url_for('home') }}" class="navlink">Home</a>
+                    <a href="{{ url_for('meal') }}" class="navlink">Meal Plans</a>
+                    <a href="{{ url_for('subscription') }}" class="navlink">Subscription</a>
+                    <a href="{{ url_for('contact') }}" class="navlink active">Contact Us</a>
+                </div>
+                <div class="logo">
+                    <img src="../static/logo1.png" alt="Logo" class="navimage">
+                    <img src="../static/logo2.png" alt="Logo" class="navimage">
+                </div>
+            </nav>
+
+            <!-- title -->
+            <h1 style="font-size: 50px;">SEA Catering</h1>
+            <h3 style="font-size: 30px;">Healthy Meals, Anytime, Anywhere</h3>
+        </main>
+
+        <footer>
+            <!-- contact details -->
+            <span class="footer-item1">Contact Us</span>
+            <div class="footer-item2">Brian</div>
+            <div class="footer-item2">☏ 08123456789</div>
+        </footer>
+    </div>
+</body>
+</html>

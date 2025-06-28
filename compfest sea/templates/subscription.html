@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <script type="text/javascript" src="../static/js/script.js" defer></script>
+    <title>SEA Catering</title>
+</head>
+<body>
+    <div class="body">
+        <div class="welcome">
+            <!-- flash message -->
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div id="flash" class="flash">
+                    <div class="flash-container">
+                    {% for message in messages %}
+                        <div class="flash-message">
+                            <div class="flash-title">{{ message }}</div>
+                            <button id="close-btn" class="flash-btn">&times;</button>
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            {% endif %}
+            {% endwith %}
+
+            <!-- navigation bar -->
+            <nav class="navbar">
+                <div class="navlinks">
+                    {% if session.email %}
+                        <a href="{{ url_for('dashboard') }}" class="navlink">Account</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="navlink">Login</a>
+                    {% endif %}
+                    <a href="{{ url_for('home') }}" class="navlink">Home</a>
+                    <a href="{{ url_for('meal') }}" class="navlink">Meal Plans</a>
+                    <a href="{{ url_for('subscription') }}" class="navlink active">Subscription</a>
+                    <a href="{{ url_for('contact') }}" class="navlink">Contact Us</a>
+                </div>
+                <div class="logo">
+                    <img src="../static/logo1.png" alt="Logo" class="navimage">
+                    <img src="../static/logo2.png" alt="Logo" class="navimage">
+                </div>
+            </nav>
+
+            <!-- subscription form -->
+            <div class="subscription-container">
+                <div class="title" style="padding-top: 2.5rem; padding-bottom: 1rem;">🧾 Subscription Form 🧾</div>
+                <form class="subscription" action="{{ url_for('subscription') }}" method="POST">
+                    <div class="subscription-item">
+                        <div class="subscription-title">Name</div>
+                        <div class="subscription-name">
+                            <input type="text" id="Name" name="Name" placeholder="Name" required>
+                        </div>
+                        
+                        <div class="subscription-title">Phone Number</div>
+                        <div class="phone-number">
+                            <div class="country-code">+62</div>
+                            <div class="subscription-number">
+                                <input type="tel" id="Phone Number" name="Phone Number" placeholder="812-3456-7890" required pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}">
+                            </div>
+                        </div>
+
+                        <div class="subscription-title">Plan Selection</div>
+                        <div class="subscription-plan">
+                            <select id="Plan" name="Plan" required onchange="countplan()">
+                                <option selected disabled>Choose Option</option>
+                                <option>Diet Plan</option>
+                                <option>Protein Plan</option>
+                                <option>Royal Plan</option>
+                            </select>
+                        </div>
+
+                        <div class="subscription-title">Meal Type</div>
+                        <div class="subscription-plan">
+                            <select id="Time" name="Time" required multiple size="3" onchange="counttime()">
+                                <option>Breakfast</option>
+                                <option>Lunch</option>
+                                <option>Dinner</option>
+                            </select>
+                        </div>
+
+                        <div class="subscription-title">Delivery Days</div>
+                        <div class="subscription-plan">
+                            <select id="Day" name="Day" required multiple size="7" onchange="countday()">
+                                <option>Monday</option>
+                                <option>Tuesday</option>
+                                <option>Wednesday</option>
+                                <option>Thursday</option>
+                                <option>Friday</option>
+                                <option>Saturday</option>
+                                <option>Sunday</option>
+                            </select>
+                        </div>
+
+                        <div class="subscription-title">Allergies or Dietary Restrictions</div>
+                        <div class="subscription-name">
+                            <input type="text" id="Allergies" name="Allergies" placeholder="Allergies">
+                        </div>
+                    </div>
+
+                    <div class="subscription-total">
+                        <div class="subscription-price">
+                            <div class="subscription-title">Total</div>
+                            <div class="subscription-title" style="text-align: right;" id="prices"></div>
+                        </div>
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <footer>
+            <!-- contact details -->
+            <span class="footer-item1">Contact Us</span>
+            <div class="footer-item2">Brian</div>
+            <div class="footer-item2">☏ 08123456789</div>
+        </footer>
+
+        <script>
+            // flash message
+            const flash = document.getElementById("flash");
+            const closebtn = document.getElementById("close-btn");
+            closebtn.addEventListener("click", () => {
+                flash.classList.add("slideout");
+                setTimeout(() => {
+                    flash.classList.remove("active", "slideout");
+                    flash.style.display = "none";
+                }, 200);
+            });
+        </script>
+
+        <script>
+            // counting price
+            let price = 0, time = 0, day = 0;
+            function countplan() {
+                let plans = document.getElementById("Plan");
+                let idx = plans.selectedIndex;
+                price = 0;
+                if (idx == 1) price = 30000;
+                if (idx == 2) price = 40000;
+                if (idx == 3) price = 60000;
+                let total = price * time * day * 4.3;
+                document.getElementById("prices").innerHTML = "Rp "+total+",00";
+            }
+            function counttime() {
+                let times = document.getElementById("Time").selectedOptions;
+                time = 0;
+                for (let i = 0; i < times.length; i++) {
+                    if (times[i].label === "Breakfast") time++;
+                    if (times[i].label === "Lunch") time++;
+                    if (times[i].label === "Dinner") time++;
+                }
+                let total = price * time * day * 4.3;
+                document.getElementById("prices").innerHTML = "Rp "+total+",00";
+            }
+            function countday() {
+                let days = document.getElementById("Day").selectedOptions;
+                day = 0;
+                for (let i = 0; i < days.length; i++) {
+                    if (days[i].label === "Monday") day++;
+                    if (days[i].label === "Tuesday") day++;
+                    if (days[i].label === "Wednesday") day++;
+                    if (days[i].label === "Thursday") day++;
+                    if (days[i].label === "Friday") day++;
+                    if (days[i].label === "Saturday") day++;
+                    if (days[i].label === "Sunday") day++;
+                }
+                let total = price * time * day * 4.3;
+                document.getElementById("prices").innerHTML = "Rp "+total+",00";
+            }
+        </script>
+    </div>
+</body>
+</html>
