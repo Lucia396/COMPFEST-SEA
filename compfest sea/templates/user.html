@@ -13,14 +13,16 @@
             <!-- flash message -->
             {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <div id="flash" class="flash">
-                    <div class="flash-container">
-                    {% for message in messages %}
-                        <div class="flash-message">
-                            <div class="flash-title">{{ message }}</div>
+                <div id="flash" class="flash-background">
+                    <div class="flash">
+                        <div class="flash-container">
+                            <div class="flash-message">
+                                {% for message in messages %}
+                                    <div>{{ message }}</div>
+                                {% endfor %}
+                            </div>
                             <button id="close-btn" class="flash-btn">&times;</button>
                         </div>
-                    {% endfor %}
                     </div>
                 </div>
             {% endif %}
@@ -42,23 +44,22 @@
             </nav>
 
             <!-- user dashboard -->
-            <div class="user-dashboard">
-                <div class="title">👤 SEA Catering Account 👤</div>
-                <div class="user">
+            <div class="sidebar">
+                <div class="sidebar-items">
                     {% if session.role == 'user' %}
-                        <div class="subscription-user-item"><a href="{{ url_for('profile') }}">Profile Section</a></div>
-                        <div class="subscription-user-item"><a href="{{ url_for('viewSubscription') }}">View Active Subscription</a></div>
-                        <div class="subscription-user-item"><a href="{{ url_for('pausesubscription') }}">Pause Subscription</a></div>
-                        <div class="subscription-user-item"><a href="{{ url_for('reactivatesubscription') }}">Reactivate Subscription</a></div>
-                        <div class="subscription-user-item"><a href="{{ url_for('cancelsubscription') }}">Cancel Subscription</a></div>
-                        <div class="subscription-user-item"><a href="{{ url_for('logout') }}">Logout</a></div>
+                        <a href="{{ url_for('profile') }}" class="sidebar-item">Profile Section</a>
+                        <a href="{{ url_for('viewSubscription') }}" class="sidebar-item">View Active Subscription</a>
+                        <a href="{{ url_for('pausesubscription') }}" class="sidebar-item">Pause Subscription</a>
+                        <a href="{{ url_for('reactivatesubscription') }}" class="sidebar-item">Reactivate Subscription</a>
+                        <a href="{{ url_for('cancelsubscription') }}" class="sidebar-item">Cancel Subscription</a>
+                        <a href="{{ url_for('logout') }}" class="sidebar-item">Logout</a>
                     {% else %}
-                        <div class="subscription-user-item"><a href="{{ url_for('profile') }}">Profile Section</a></div>
-                        <div class="subscription-user-item"><a href="{{ url_for('newSubscriptions') }}">New Subscriptions</a></div>
-                        <div class="subscription-user-item"><a href="{{ url_for('monthlyRecurringRevenue') }}">Monthly Recurring Revenue (MRR)</a></div>
-                        <div class="subscription-user-item"><a href="{{ url_for('reactivations') }}">Reactivations</a></div>
-                        <div class="subscription-user-item"><a href="{{ url_for('subscriptionGrowth') }}">Subscription Growth</a></div>
-                        <div class="subscription-user-item"><a href="{{ url_for('logout') }}">Logout</a></div>
+                        <a href="{{ url_for('profile') }}" class="sidebar-item">Profile Section</a>
+                        <a href="{{ url_for('newSubscriptions') }}" class="sidebar-item">New Subscriptions</a>
+                        <a href="{{ url_for('monthlyRecurringRevenue') }}" class="sidebar-item">Monthly Recurring Revenue (MRR)</a>
+                        <a href="{{ url_for('reactivations') }}" class="sidebar-item">Reactivations</a>
+                        <a href="{{ url_for('subscriptionGrowth') }}" class="sidebar-item">Subscription Growth</a>
+                        <a href="{{ url_for('logout') }}" class="sidebar-item">Logout</a>
                     {% endif %}
                 </div>
             </div>
@@ -66,9 +67,11 @@
 
         <footer>
             <!-- contact details -->
-            <span class="footer-item1">Contact Us</span>
-            <div class="footer-item2">Brian</div>
-            <div class="footer-item2">☏ 08123456789</div>
+            <div class="footer-container">
+                <div class="footer-item1">Contact Us</div>
+                <div class="footer-item2">Brian</div>
+                <div class="footer-item2">☏ 08123456789</div>
+            </div>
         </footer>
 
         <script>

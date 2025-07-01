@@ -25,25 +25,46 @@
                 </div>
             </nav>
 
+            <!-- user dashboard -->
+            <div class="sidebar">
+                <div class="sidebar-items">
+                    <a href="{{ url_for('profile') }}" class="sidebar-item sidebar-active">Profile Section</a>
+                    {% if session.role == 'user' %}
+                        <a href="{{ url_for('viewSubscription') }}" class="sidebar-item">View Active Subscription</a>
+                        <a href="{{ url_for('pausesubscription') }}" class="sidebar-item">Pause Subscription</a>
+                        <a href="{{ url_for('reactivatesubscription') }}" class="sidebar-item">Reactivate Subscription</a>
+                        <a href="{{ url_for('cancelsubscription') }}" class="sidebar-item">Cancel Subscription</a>
+                        <a href="{{ url_for('logout') }}" class="sidebar-item">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('newSubscriptions') }}" class="sidebar-item">New Subscriptions</a>
+                        <a href="{{ url_for('monthlyRecurringRevenue') }}" class="sidebar-item">Monthly Recurring Revenue (MRR)</a>
+                        <a href="{{ url_for('reactivations') }}" class="sidebar-item">Reactivations</a>
+                        <a href="{{ url_for('subscriptionGrowth') }}" class="sidebar-item">Subscription Growth</a>
+                        <a href="{{ url_for('logout') }}" class="sidebar-item">Logout</a>
+                    {% endif %}
+                </div>
+            </div>
+
             <!-- user profile -->
             <div class="profile-container">
                 <div class="title">Profile Section</div>
-                    <div class="subs-container">
+                <div class="subs-container">
                         <div class="subs-container-top">Data</div>
                         <div class="subs-container-item-title">User Name</div>
                         <div class="subs-container-item">{{ user.Name }}</div>
                         <div class="subs-container-item-title" style="border-radius: 0 0 0 1rem;">Email</div>
                         <div class="subs-container-item" style="border-radius: 0 0 1rem 0;">{{ user.Email }}</div>
-                    </div>
                 </div>
             </div>
         </div>
 
         <footer>
             <!-- contact details -->
-            <span class="footer-item1">Contact Us</span>
-            <div class="footer-item2">Brian</div>
-            <div class="footer-item2">☏ 08123456789</div>
+            <div class="footer-container">
+                <div class="footer-item1">Contact Us</div>
+                <div class="footer-item2">Brian</div>
+                <div class="footer-item2">☏ 08123456789</div>
+            </div>
         </footer>
     </div>
 </body>

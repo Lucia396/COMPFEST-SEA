@@ -25,8 +25,29 @@
                 </div>
             </nav>
 
+            <!-- user dashboard -->
+            <div class="sidebar">
+                <div class="sidebar-items">
+                    {% if session.role == 'user' %}
+                        <a href="{{ url_for('profile') }}" class="sidebar-item">Profile Section</a>
+                        <a href="{{ url_for('viewSubscription') }}" class="sidebar-item">View Active Subscription</a>
+                        <a href="{{ url_for('pausesubscription') }}" class="sidebar-item">Pause Subscription</a>
+                        <a href="{{ url_for('reactivatesubscription') }}" class="sidebar-item">Reactivate Subscription</a>
+                        <a href="{{ url_for('cancelsubscription') }}" class="sidebar-item sidebar-active">Cancel Subscription</a>
+                        <a href="{{ url_for('logout') }}" class="sidebar-item">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('profile') }}" class="sidebar-item">Profile Section</a>
+                        <a href="{{ url_for('newSubscriptions') }}" class="sidebar-item">New Subscriptions</a>
+                        <a href="{{ url_for('monthlyRecurringRevenue') }}" class="sidebar-item">Monthly Recurring Revenue (MRR)</a>
+                        <a href="{{ url_for('reactivations') }}" class="sidebar-item">Reactivations</a>
+                        <a href="{{ url_for('subscriptionGrowth') }}" class="sidebar-item">Subscription Growth</a>
+                        <a href="{{ url_for('logout') }}" class="sidebar-item">Logout</a>
+                    {% endif %}
+                </div>
+            </div>
+
             <!-- cancel subscription -->
-            <div class="pause-container">
+            <div class="profile-container" style="margin-top: 6.5rem;">
                 <div class="title">🧾 Manage Subscription 🧾</div>
                 <ul class="pause">
                     {% for subscription in subscriptions %}
@@ -43,6 +64,7 @@
                                 <div class="subs-container-item">{{ subscription.Status }}</div>
                                 <form action="{{ url_for('cancelSubscription', SubscriptionID=subscription.SubscriptionID) }}" method="POST" class="pause-form" onsubmit="return confirmCancel();">
                                     <button type="submit">Cancel Subscription</button>
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                                 </form>
                             </div>
                         </li>
@@ -53,9 +75,11 @@
 
         <footer>
             <!-- contact details -->
-            <span class="footer-item1">Contact Us</span>
-            <div class="footer-item2">Brian</div>
-            <div class="footer-item2">☏ 08123456789</div>
+            <div class="footer-container">
+                <div class="footer-item1">Contact Us</div>
+                <div class="footer-item2">Brian</div>
+                <div class="footer-item2">☏ 08123456789</div>
+            </div>
         </footer>
 
         <script>

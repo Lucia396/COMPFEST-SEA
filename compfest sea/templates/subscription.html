@@ -13,14 +13,16 @@
             <!-- flash message -->
             {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <div id="flash" class="flash">
-                    <div class="flash-container">
-                    {% for message in messages %}
-                        <div class="flash-message">
-                            <div class="flash-title">{{ message }}</div>
+                <div id="flash" class="flash-background">
+                    <div class="flash">
+                        <div class="flash-container">
+                            <div class="flash-message">
+                                {% for message in messages %}
+                                    <div>{{ message }}</div>
+                                {% endfor %}
+                            </div>
                             <button id="close-btn" class="flash-btn">&times;</button>
                         </div>
-                    {% endfor %}
                     </div>
                 </div>
             {% endif %}
@@ -47,9 +49,9 @@
 
             <!-- subscription form -->
             <div class="subscription-container">
-                <div class="title" style="padding-top: 2.5rem; padding-bottom: 1rem;">🧾 Subscription Form 🧾</div>
+                <div class="title" style="margin-top: 6.5rem;">🧾 Subscription Form 🧾</div>
                 <form class="subscription" action="{{ url_for('subscription') }}" method="POST">
-                    <div class="subscription-item">
+                    <div class="subscription-items">
                         <div class="subscription-title">Name</div>
                         <div class="subscription-name">
                             <input type="text" id="Name" name="Name" placeholder="Name" required>
@@ -57,9 +59,9 @@
                         
                         <div class="subscription-title">Phone Number</div>
                         <div class="phone-number">
-                            <div class="country-code">+62</div>
+                            <div class="subscription-number"><div class="country-code">+62</div></div>
                             <div class="subscription-number">
-                                <input type="tel" id="Phone Number" name="Phone Number" placeholder="812-3456-7890" required pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}">
+                                <input type="tel" id="PhoneNumber" name="PhoneNumber" placeholder="812-3456-7890" required pattern="[0-9]{3}-[0-9]{4}-[0-9]{4}">
                             </div>
                         </div>
 
@@ -107,6 +109,7 @@
                             <div class="subscription-title" style="text-align: right;" id="prices"></div>
                         </div>
                         <button type="submit">Subscribe</button>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     </div>
                 </form>
             </div>
@@ -114,9 +117,11 @@
 
         <footer>
             <!-- contact details -->
-            <span class="footer-item1">Contact Us</span>
-            <div class="footer-item2">Brian</div>
-            <div class="footer-item2">☏ 08123456789</div>
+            <div class="footer-container">
+                <div class="footer-item1">Contact Us</div>
+                <div class="footer-item2">Brian</div>
+                <div class="footer-item2">☏ 08123456789</div>
+            </div>
         </footer>
 
         <script>
@@ -143,7 +148,7 @@
                 if (idx == 2) price = 40000;
                 if (idx == 3) price = 60000;
                 let total = price * time * day * 4.3;
-                document.getElementById("prices").innerHTML = "Rp "+total+",00";
+                document.getElementById("prices").innerText = "Rp "+total+",00";
             }
             function counttime() {
                 let times = document.getElementById("Time").selectedOptions;
@@ -154,7 +159,7 @@
                     if (times[i].label === "Dinner") time++;
                 }
                 let total = price * time * day * 4.3;
-                document.getElementById("prices").innerHTML = "Rp "+total+",00";
+                document.getElementById("prices").innerText = "Rp "+total+",00";
             }
             function countday() {
                 let days = document.getElementById("Day").selectedOptions;
@@ -169,7 +174,7 @@
                     if (days[i].label === "Sunday") day++;
                 }
                 let total = price * time * day * 4.3;
-                document.getElementById("prices").innerHTML = "Rp "+total+",00";
+                document.getElementById("prices").innerText = "Rp "+total+",00";
             }
         </script>
     </div>

@@ -7,7 +7,7 @@
     <title>SEA Catering</title>
 </head>
 <body>
-    <div class="body">
+    <div class="body-home">
         <main>
             <!-- navigation bar -->
             <nav class="navbar">
@@ -29,95 +29,123 @@
             </nav>
 
             <!-- title -->
-            <h1 style="font-size: 50px;">SEA Catering</h1>
-            <h3 style="font-size: 30px;">Healthy Meals, Anytime, Anywhere</h3>
+            <div class="main-title">SEA Catering</div>
+            <div class="title">Healthy Meals, Anytime, Anywhere</div>
         </main>
 
         <div class="welcome">
             <!-- flash message -->
             {% with messages = get_flashed_messages() %}
-            {% if session.email %}
-                {% if messages %}
-                    <div id="flash" class="flash">
+            {% if messages %}
+                <div id="flash" class="flash-background">
+                    <div class="flash">
                         <div class="flash-container">
-                        {% for message in messages %}
                             <div class="flash-message">
-                                <div class="flash-title">{{ message }}</div>
-                                <button id="close-btn" class="flash-btn">&times;</button>
+                                {% for message in messages %}
+                                    <div>{{ message }}</div>
+                                {% endfor %}
                             </div>
-                        {% endfor %}
+                            <button id="close-btn" class="flash-btn">&times;</button>
                         </div>
                     </div>
-                {% endif %}
-            <!-- welcoming section -->
-            <div class="welcome-container">
-                <div class="welcome-item1">🥗 Welcome {{ session.email }} to SEA Catering 🥗</div>
-            {% else %}
-            <div class="welcome-container">
-                <div class="welcome-item1">🥗 Welcome to SEA Catering 🥗</div>
+                </div>
             {% endif %}
             {% endwith %}
-                <img src="../static/welcome-image.png" alt="Food" class="welcome-img">
-                <div class="welcome-item2">
+
+            <!-- welcoming section -->
+            <div class="container">
+                {% if session.email %}
+                    <div class="title">🥗 Welcome {{ session.email }} to SEA Catering 🥗</div>
+                {% else %}
+                    <div class="title">🥗 Welcome to SEA Catering 🥗</div>
+                {% endif %}
+                <div class="welcome-container">
+                    <div class="welcome-img"><img src="../static/welcome-image.png" alt="Food"></div>
+                    <div class="welcome-item">
                     SEA Catering believe that healthy eating should be simple, delicious, and tailored to customer lifestyle.
                     Whether you're aiming to lose weight, build muscle, manage a health condition, eat cleaner, or to live a better lifestyle, our customizable meal plans are designed to suit your needs without compromising on taste.
                     From Sabang to Merauke and everywhere in between, we deliver fresh, nutritious meals straight to your door.
                     With flexible options, chef-crafted menus, and ingredients you can trust, SEA Catering is here to make healthy living more convenient than ever.
+                    </div>
+                    <div class="welcome-item" style="text-align: center; font-weight: 600;">Your Personalized Healthy Meal Partner Delivered Anywhere in Indonesia</div>
                 </div>
-                <div class="welcome-item2" style="font-weight: bold;">Your Personalized Healthy Meal Partner Delivered Anywhere in Indonesia.</div>
             </div>
 
             <!-- key features and services -->
-            <div class="title">Our Services</div>
             <div class="container">
-                <div class="itemcontainer">
-                    <div class="item1">Customizable Meal Plans 🍱</div>
-                    <div class="item2">
-                        For every meal, SEA Catering provides a complete breakdown of calories, macronutrients, vitamins, and allergens.
-                        Additionally, clear tags indicate the presence of common allergens (such as nuts, dairy, soy, and gluten), and customers have the option to exclude specific allergens during meal customization.
+                <div class="title">Our Services</div>
+                <div class="services-container">
+                    <div class="services-items">
+                        <div class="services-title">Customizable Meal Plans 🍱</div>
+                        <div class="services-img">
+                            <img src="../static/feature-1.png" alt="Customizable Meal Plans" class="services-image">
+                            <div class="services-item">
+                                <div class="services-text">
+                                    For every meal, SEA Catering provides a complete breakdown of calories, macronutrients, vitamins, and allergens.
+                                    Additionally, clear tags indicate the presence of common allergens (such as nuts, dairy, soy, and gluten), and customers have the option to exclude specific allergens during meal customization.
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="itemcontainer">
-                    <div class="item1">Delivery to Major Cities in Indonesia 🚛</div>
-                    <div class="item2">
-                        Our service provides fast, reliable delivery across metropolitan areas throughout Indonesia, along with easy ordering and tracking for every order.
-                        To ensure freshness and food safety, we offer cold-chain packaging so our customers always receive meals at peak quality, with an eco-friendly, recyclable, and biodegradable packaging.
+                    <div class="services-items">
+                        <div class="services-title">Delivery to Major Cities in Indonesia 🚛</div>
+                        <div class="services-img">
+                            <img src="../static/feature-2.png" alt="Delivery to Major Cities in Indonesia" class="services-image">
+                            <div class="services-item">
+                                <div class="services-text">
+                                    Our service provides fast, reliable delivery across metropolitan areas throughout Indonesia, along with easy ordering and tracking for every order.
+                                    To ensure freshness and food safety, we offer cold-chain packaging so our customers always receive meals at peak quality, with an eco-friendly, recyclable, and biodegradable packaging.
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="itemcontainer">
-                    <div class="item1">Detailed Nutritional Information 🍽️</div>
-                    <div class="item2">
-                        For every meal, SEA Catering provides a complete breakdown of calories, macronutrients, vitamins, and allergens.
-                        Additionally, clear tags indicate the presence of common allergens (such as nuts, dairy, soy, and gluten), and customers have the option to exclude specific allergens during meal customization.
+                    <div class="services-items">
+                        <div class="services-title">Detailed Nutritional Information 🍽️</div>
+                        <div class="services-img">
+                            <img src="../static/feature-3.png" alt="Detailed Nutritional Information" class="services-image">
+                            <div class="services-item">
+                                <div class="services-text">
+                                    For every meal, SEA Catering provides a complete breakdown of calories, macronutrients, vitamins, and allergens.
+                                    Additionally, clear tags indicate the presence of common allergens (such as nuts, dairy, soy, and gluten), and customers have the option to exclude specific allergens during meal customization.
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="itemcontainer">
-                    <div class="item1">Subscription and One Time Order Option 📝</div>
-                    <div class="item2">
-                        We offer flexible plans to suit every lifestyle and budget, with the freedom to pause or cancel anytime—no hidden fees.
-                        In addition, we provide healthy group meals perfect for meetings, team lunches, and corporate events.
-                        For larger occasions, we also offer special packages tailored for fitness retreats, wellness events, and seminars.
+                    <div class="services-items">
+                        <div class="services-title">Subscription and One Time Order Option 📝</div>
+                        <div class="services-img">
+                            <img src="../static/feature-4.png" alt="Subscription and One Time Order Option" class="services-image">
+                            <div class="services-item">
+                                <div class="services-text">
+                                    We offer flexible plans to suit every lifestyle and budget, with the freedom to pause or cancel anytime—no hidden fees.
+                                    In addition, we provide healthy group meals perfect for meetings, team lunches, and corporate events.
+                                    For larger occasions, we also offer special packages tailored for fitness retreats, wellness events, and seminars.
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- testimonial slider -->
-            <div class="testimonial">
+            <div class="container">
                 <div class="title">People Say About Us</div>
                 <div class="slideshow-container">
                     {% for testimoni in testimonial %}
                         {% if loop.index == 1 %}
                             <div class="slide" style="display: block;">
                                 <div class="slide-container">
-                                    <div class="slide-title">{{ testimoni.Name }}</div>
-                                    <div class="slide-message">{% for num in range(0, testimoni.Rating) %}⭐️{% endfor %} - "{{ testimoni.ReviewMessage }}"</div>
+                                    <div class="slide-title" style="padding-top: 1rem;">{{ testimoni.Name }}</div>
+                                    <div class="slide-title">{% for num in range(0, testimoni.Rating) %}⭐️{% endfor %}</div>
+                                    <div class="slide-message">"{{ testimoni.ReviewMessage }}"</div>
                                 </div>
                             </div>
                         {% else %}
                             <div class="slide">
                                 <div class="slide-container">
-                                    <div class="slide-title">{{ testimoni.Name }}</div>
-                                    <div class="slide-message">{% for num in range(0, testimoni.Rating) %}⭐️{% endfor %} - "{{ testimoni.ReviewMessage }}"</div>
+                                    <div class="slide-title" style="padding-top: 1rem;">{{ testimoni.Name }}</div>
+                                    <div class="slide-title">{% for num in range(0, testimoni.Rating) %}⭐️{% endfor %}</div>
+                                    <div class="slide-message">"{{ testimoni.ReviewMessage }}"</div>
                                 </div>
                             </div>
                         {% endif %}
@@ -135,24 +163,24 @@
 
             <!-- form -->
             {% if session.role == 'user' %}
-                <div class="feedback-container">
+                <div class="container">
                     <div class="title">Testimonial</div>
                     <form class="feedback" action="{{ url_for('home') }}" method="POST">
-                        <div class="feedback-title">Customer Name</div>
+                        <label for="Name" class="feedback-title">Customer Name</label>
                         <input type="text" id="Name" name="Name" placeholder="Name" required>
-                        <div class="feedback-title">Rating</div>
-                        <div style="margin-bottom: 0.5rem;">
-                            <select name="Rating" required>
-                                <option selected disabled>Choose Rating</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </select>
-                        </div>
-                        <div class="feedback-title">Review Message</div>
-                        <textarea name="Review Message" class="feedback-review" placeholder="Review Message"></textarea>
+                        
+                        <label for="Rating" class="feedback-title">Rating</label>
+                        <select id="Rating" name="Rating">
+                            <option selected disabled>Choose Rating</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                        </select>
+                        
+                        <label for="ReviewMessage" class="feedback-title">Review Message</label>
+                        <textarea id="ReviewMessage" name="ReviewMessage" class="feedback-review" placeholder="Review Message"></textarea>
                         <button type="submit">Submit Review</button>
                     </div>
                 </div>
@@ -161,9 +189,11 @@
 
         <footer>
             <!-- contact details -->
-            <span class="footer-item1">Contact Us</span>
-            <div class="footer-item2">Brian</div>
-            <div class="footer-item2">☏ 08123456789</div>
+            <div class="footer-container">
+                <div class="footer-item1">Contact Us</div>
+                <div class="footer-item2">Brian</div>
+                <div class="footer-item2">☏ 08123456789</div>
+            </div>
         </footer>
         
         <script>

@@ -41,11 +41,32 @@
                 </div>
             </nav>
 
-            <div class="user-dashboard">
+            <!-- user dashboard -->
+            <div class="sidebar">
+                <div class="sidebar-items">
+                    <a href="{{ url_for('profile') }}" class="sidebar-item">Profile Section</a>
+                    {% if session.role == 'user' %}
+                        <a href="{{ url_for('viewSubscription') }}" class="sidebar-item">View Active Subscription</a>
+                        <a href="{{ url_for('pausesubscription') }}" class="sidebar-item">Pause Subscription</a>
+                        <a href="{{ url_for('reactivatesubscription') }}" class="sidebar-item">Reactivate Subscription</a>
+                        <a href="{{ url_for('cancelsubscription') }}" class="sidebar-item">Cancel Subscription</a>
+                        <a href="{{ url_for('logout') }}" class="sidebar-item">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('newSubscriptions') }}" class="sidebar-item">New Subscriptions</a>
+                        <a href="{{ url_for('monthlyRecurringRevenue') }}" class="sidebar-item">Monthly Recurring Revenue (MRR)</a>
+                        <a href="{{ url_for('reactivations') }}" class="sidebar-item">Reactivations</a>
+                        <a href="{{ url_for('subscriptionGrowth') }}" class="sidebar-item sidebar-active">Subscription Growth</a>
+                        <a href="{{ url_for('logout') }}" class="sidebar-item">Logout</a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- subscription growth -->
+            <div class="profile-container" style="margin-top: 6.5rem;">
                 <div class="title">Total Active Subscripitons : {{ subscriptions | length }}</div>
                 {% for subscription in subscriptions %}
                     <div class="subs-container">
-                        <div class="subs-container-top">Subscription #{{ loop.index }}</div>
+                        <div class="subs-container-top">Subscription #{{ subscription.SubscriptionID }}</div>
                         <div class="subs-container-item-title">User</div>
                         <div class="subs-container-item">{{ subscription.Name }}</div>
                         <div class="subs-container-item-title">Phone Number</div>
@@ -63,7 +84,7 @@
                             <div class="subs-container-item">{{ subscription.Allergies }}</div>
                         {% endif %}
                         <div class="subs-container-item-title">Prices</div>
-                        <div class="subs-container-item">{{ subscription.Prices }}</div>
+                        <div class="subs-container-item">Rp {{ subscription.Prices }},00</div>
                         <div class="subs-container-item-title" style="border-radius: 0 0 0 1rem;">Status</div>
                         <div class="subs-container-item" style="border-radius: 0 0 1rem 0;">{{ subscription.Status }}</div>
                     </div>
@@ -73,9 +94,11 @@
 
         <footer>
             <!-- contact details -->
-            <span class="footer-item1">Contact Us</span>
-            <div class="footer-item2">Brian</div>
-            <div class="footer-item2">☏ 08123456789</div>
+            <div class="footer-container">
+                <div class="footer-item1">Contact Us</div>
+                <div class="footer-item2">Brian</div>
+                <div class="footer-item2">☏ 08123456789</div>
+            </div>
         </footer>
         
         <script>

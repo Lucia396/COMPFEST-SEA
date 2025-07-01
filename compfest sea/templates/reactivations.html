@@ -13,14 +13,16 @@
             <!-- flash message -->
             {% with messages = get_flashed_messages() %}
             {% if messages %}
-                <div id="flash" class="flash">
-                    <div class="flash-container">
-                    {% for message in messages %}
-                        <div class="flash-message">
-                            <div class="flash-title">{{ message }}</div>
+                <div id="flash" class="flash-background">
+                    <div class="flash">
+                        <div class="flash-container">
+                            <div class="flash-message">
+                                {% for message in messages %}
+                                    <div>{{ message }}</div>
+                                {% endfor %}
+                            </div>
                             <button id="close-btn" class="flash-btn">&times;</button>
                         </div>
-                    {% endfor %}
                     </div>
                 </div>
             {% endif %}
@@ -41,9 +43,29 @@
                 </div>
             </nav>
 
+            <!-- user dashboard -->
+            <div class="sidebar">
+                <div class="sidebar-items">
+                    <a href="{{ url_for('profile') }}" class="sidebar-item">Profile Section</a>
+                    {% if session.role == 'user' %}
+                        <a href="{{ url_for('viewSubscription') }}" class="sidebar-item">View Active Subscription</a>
+                        <a href="{{ url_for('pausesubscription') }}" class="sidebar-item">Pause Subscription</a>
+                        <a href="{{ url_for('reactivatesubscription') }}" class="sidebar-item">Reactivate Subscription</a>
+                        <a href="{{ url_for('cancelsubscription') }}" class="sidebar-item">Cancel Subscription</a>
+                        <a href="{{ url_for('logout') }}" class="sidebar-item">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('newSubscriptions') }}" class="sidebar-item">New Subscriptions</a>
+                        <a href="{{ url_for('monthlyRecurringRevenue') }}" class="sidebar-item">Monthly Recurring Revenue (MRR)</a>
+                        <a href="{{ url_for('reactivations') }}" class="sidebar-item sidebar-active">Reactivations</a>
+                        <a href="{{ url_for('subscriptionGrowth') }}" class="sidebar-item">Subscription Growth</a>
+                        <a href="{{ url_for('logout') }}" class="sidebar-item">Logout</a>
+                    {% endif %}
+                </div>
+            </div>
+
             <!-- reactivate -->
             {% if subscriptions %}
-                <div class="new-subs-yes">
+                <div class="profile-container" style="margin-top: 6.5rem;">
                     <div class="title">Reactivations</div>
                     <form class="new-subs" action="{{ url_for('reactivations') }}" method="POST">
                         <label for="start" style="border-radius: 1rem 0 0 0;">Start Date</label>
@@ -53,10 +75,11 @@
                         <input type="datetime-local" id="start" name="end_date" required>
 
                         <button type="submit">Pick Date</button>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     </form>
                 </div>
             {% else %}
-                <div class="new-subs-no">
+                <div class="profile-container">
                     <div class="title">Reactivations</div>
                     <form class="new-subs" action="{{ url_for('reactivations') }}" method="POST">
                         <label for="start" style="border-radius: 1rem 0 0 0;">Start Date</label>
@@ -66,34 +89,23 @@
                         <input type="datetime-local" id="start" name="end_date" required>
 
                         <button type="submit">Pick Date</button>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                     </form>
                 </div>
             {% endif %}
 
             {% if subscriptions %}
-                <div class="reactivate-container">
+                <div class="profile-container" style="margin-top: 5rem;">
                     <div class="title">Total Reactivation Customers : {{ subscriptions | length }}</div>
                     {% for subscription in subscriptions %}
                         <div class="subs-container">
-                            <div class="subs-container-top">Subscription #{{ subscription.SubscriptionID }}</div>
-                            <div class="subs-container-item-title">User</div>
-                            <div class="subs-container-item">{{ subscription.Name }}</div>
-                            <div class="subs-container-item-title">Phone Number</div>
-                            <div class="subs-container-item">+62 {{ subscription.PhoneNumber }}</div>
-                            <div class="subs-container-item-title">Plan Selection</div>
-                            <div class="subs-container-item">{{ subscription.PlanSelection }}</div>
-                            <div class="subs-container-item-title">Meal Type</div>
-                            <div class="subs-container-item">{{ subscription.MealType }}</div>
-                            <div class="subs-container-item-title">Delivery Days</div>
-                            <div class="subs-container-item">{{ subscription.DeliveryDays }}</div>
-                            <div class="subs-container-item-title">Allergies or Dietary Restrictions</div>
-                            {% if subscription.Allergies == '' %}
-                                <div class="subs-container-item">None</div>
-                            {% else %}
-                                <div class="subs-container-item">{{ subscription.Allergies }}</div>
-                            {% endif %}
-                            <div class="subs-container-item-title">Prices</div>
-                            <div class="subs-container-item">{{ subscription.Prices }}</div>
+                            <div class="subs-container-top">Modification #{{ subscription.ModifyID }}</div>
+                            <div class="subs-container-item-title">Subscription</div>
+                            <div class="subs-container-item">{{ subscription.SubscriptionID }}</div>
+                            <div class="subs-container-item-title">Pause Time</div>
+                            <div class="subs-container-item">{{ subscription.CancelTime }}</div>
+                            <div class="subs-container-item-title">Reactivate Time</div>
+                            <div class="subs-container-item">{{ subscription.ReactivateTime }}</div>
                             <div class="subs-container-item-title" style="border-radius: 0 0 0 1rem;">Status</div>
                             <div class="subs-container-item" style="border-radius: 0 0 1rem 0;">{{ subscription.Status }}</div>
                         </div>
@@ -104,9 +116,11 @@
 
         <footer>
             <!-- contact details -->
-            <span class="footer-item1">Contact Us</span>
-            <div class="footer-item2">Brian</div>
-            <div class="footer-item2">☏ 08123456789</div>
+            <div class="footer-container">
+                <div class="footer-item1">Contact Us</div>
+                <div class="footer-item2">Brian</div>
+                <div class="footer-item2">☏ 08123456789</div>
+            </div>
         </footer>
         
         <script>
